@@ -1,0 +1,1 @@
+select LastName || FirstName as full_name, Phone, (SELECT Employee.FirstName || Employee.LastName FROM Employee WHERE EmployeeId) as Boss from Employee

@@ -2,18 +2,25 @@ import os
 import glob
 from mp3_tagger import MP3File, VERSION_1, VERSION_2, VERSION_BOTH
 
-# Создание списка всех файлов в папке
-arr = os.listdir('D:\погромирование\Task_3\Подборка музыки')
-print(arr)
-# Цикл для переборки файлов в директории
+
+
+
 namedir = input("Введите директорию: ")
+os.chdir(namedir)  # Перемещение в нужную директорию
+
+# Создание списка файлов с расширением .mp3 в папке
+arr = glob.glob('*.mp3')
+print(arr)
+
+#src = input(":")
+#dst = input("Введите конечную директорию: ")
 
 # Цикл создает директорию с именем исполнителя для каждого файла в указанной директории
 for j in range(len(arr)):
-    os.chdir(namedir)  # Перемещение в нужную директорию
+
     file = os.path.abspath(arr[j])  # Извлечение абсолютного пути из файла
     print(file)
-    mp3 = MP3File(file) # Извлечение тегов
+    mp3 = MP3File(file)  # Извлечение тегов
     tags = mp3.get_tags()
     ID3TagV1 = tags['ID3TagV1']
     song = ID3TagV1['song']
@@ -24,8 +31,8 @@ for j in range(len(arr)):
     if song is None or artist is None or album is None:
         if song is None:
             # print('SOOOOOOOOOOOOONG')
-            song=arr[j]
-            song=song[:-4]  # Удаление последних 4х символов .mp3
+            song = arr[j]
+            song = song[:-4]  # Удаление последних 4х символов .mp3
         if artist is None:
             # print('ARTIIIIIIIIIIIIIST')
             artist = arr[j]
